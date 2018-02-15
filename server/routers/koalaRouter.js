@@ -19,7 +19,24 @@ res.send(result.rows);
 })
 })
 // end get koala router
-
+router.post('/', function(request, res){
+    console.log(request.body);
+    const koala = request.body;
+    console.log(koala);
+    
+    const sqlText = `INSERT INTO koala
+                        (name, age, gender, ready_for_transfer, notes)
+                        VALUES ($1, $2, $3, $4, $5)`;
+        pool.query(sqlText, [koala.name, koala.age, koala.gender, koala.readyForTransfer, koala.notes])
+        .then(function(){
+            console.log('added Koala', result);
+            response.sendStatus(200)
+        })
+        .catch(function(error){
+            console.log('error adding koala', error);
+        })
+    
+})//end koala post
 
 
 

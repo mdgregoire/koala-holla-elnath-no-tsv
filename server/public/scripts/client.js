@@ -12,11 +12,11 @@ $( document ).ready( function(){
     // NOT WORKING YET :(
     // using a test object
     var objectToSend = {
-      name: 'testName',
-      age: 'testName',
-      gender: 'testName',
-      readyForTransfer: 'testName',
-      notes: 'testName',
+      name: $('#nameIn').val(),
+      age: $('#ageIn').val(),
+      gender: $('#genderIn').val(),
+      readyForTransfer: $('#readyForTransferIn').val(),
+      notes: $('#notesIn').val()
     };
     // call saveKoala with the new obejct
     saveKoala( objectToSend );
@@ -31,6 +31,7 @@ function getKoalas(){
     type: 'GET',
     success: function( data ){
       console.log( 'got some koalas: ', data );
+      writeKoalas(data);
     },   // end success
     error: function(error){
       console.log('failure on get');
@@ -52,3 +53,19 @@ function saveKoala( newKoala ){
     } // end success
   }); //end ajax
 }
+
+// this is from the get post above 
+function writeKoalas(array){
+console.log('in write koala ', array);
+$('#viewKoalas').empty();
+for(i=0; i<array.length; i++){
+  let id = array[i].id;
+  let stringToAppend = `<tr class='individualKoala'><td>`;
+  stringToAppend += array[i].name+'</td><td>'+array[i].age+'</td><td>'+array[i].gender;
+  stringToAppend += '</td><td>'+array[i].ready_for_transfer+'</td><td>'+array[i].notes+'</td></tr>';
+  $('#viewKoalas').append(stringToAppend);
+  
+}
+
+
+}// endkoala function 
