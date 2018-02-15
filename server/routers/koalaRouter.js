@@ -5,21 +5,21 @@ const bodyParser = require('body-parser');
 
 console.log('in koala router');
 
-router.get('/', function(req, res){
+router.get('/', function(request, response){
     console.log('in koala get router');
     const sqlText = `SELECT * FROM koala ORDER BY id asc`;
 pool.query(sqlText)
 .then(function (result){
     console.log('got result', result.rows);
-res.send(result.rows);
+response.send(result.rows);
 })
 .catch(function(error){
     console.log('error on get in router', error);
-    res.sendStatus(500);
+    response.sendStatus(500);
 })
 })
 // end get koala router
-router.post('/', function(request, res){
+router.post('/', function(request, response){
     console.log(request.body);
     const koala = request.body;
     console.log(koala);
@@ -28,7 +28,7 @@ router.post('/', function(request, res){
                         (name, age, gender, ready_for_transfer, notes)
                         VALUES ($1, $2, $3, $4, $5)`;
         pool.query(sqlText, [koala.name, koala.age, koala.gender, koala.readyForTransfer, koala.notes])
-        .then(function(){
+        .then(function(result){
             console.log('added Koala', result);
             response.sendStatus(200)
         })

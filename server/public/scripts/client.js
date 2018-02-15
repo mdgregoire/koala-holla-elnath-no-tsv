@@ -20,7 +20,9 @@ $( document ).ready( function(){
     };
     // call saveKoala with the new obejct
     saveKoala( objectToSend );
+
   }); //end addButton on click
+
 }); // end doc ready
 
 function getKoalas(){
@@ -49,8 +51,12 @@ function saveKoala( newKoala ){
     type: 'POST',
     data: newKoala,
     success: function( data ){
-      console.log( 'got some koalas: ', data );
-    } // end success
+      console.log( 'got some koalas in save: ', data );
+      getKoalas();
+    },// end success
+    error: function(error){
+      console.log('failure on post');
+    }
   }); //end ajax
 }
 
