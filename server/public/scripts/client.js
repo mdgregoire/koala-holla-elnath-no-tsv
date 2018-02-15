@@ -31,8 +31,12 @@ function getKoalas(){
     type: 'GET',
     success: function( data ){
       console.log( 'got some koalas: ', data );
-    } // end success
-  }); //end ajax
+    },   // end success
+    error: function(error){
+      console.log('failure on get');
+    }
+  });
+ //end ajax
   // display on DOM with buttons that allow edit of each
 } // end getKoalas
 
