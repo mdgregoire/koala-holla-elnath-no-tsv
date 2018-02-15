@@ -38,9 +38,35 @@ router.post('/', function(request, response){
     
 })//end koala post
 
+router.delete('/', function(request, response){
+    const id = request.body.data;
+    const sqlText = `DELETE FROM koala WHERE id = ${id}`;
+    pool.query(sqlText)
+    .then (function(result){
+        console.log('deleted', id);
+        response.sendStatus(200);
+    })
+    .catch(function(error){
+        console.log('error on delete', error);
+        response.sendStatus(500);
+    })
+})
 
-
-
+router.put('/', function(request, response){
+    const id = request.body.data;
+    const sqlText = `UPDATE koala SET ready_for_transfer = 'Yes' WHERE id = ${id}`;
+    console.log('sqlText');
+    
+    pool.query(sqlText)
+    .then (function(result){
+        console.log('updated', id);
+        response.sendStatus(200);
+    })
+    .catch(function(error){
+        console.log('error on update', error);
+        response.sendStatus(500);
+    })
+})
 
 
 
