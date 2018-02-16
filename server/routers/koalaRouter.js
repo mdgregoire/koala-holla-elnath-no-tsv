@@ -95,7 +95,18 @@ router.put('/editSubmit', function(request, response){
   })
 })//end put edit
 
-
+router.get('/toggle', function(request, response){
+  const sqlText = `SELECT * FROM koala WHERE ready_for_transfer = 'Yes' ORDER BY id asc`;
+  pool.query(sqlText)
+  .then(function (result){
+    console.log('got toggle result', result.rows);
+    response.send(result.rows);
+  })
+  .catch(function(error){
+    console.log('error on toggle in router', error);
+    response.sendStatus(500);
+  })
+})// end get koala toggle router
 
 
 module.exports = router;

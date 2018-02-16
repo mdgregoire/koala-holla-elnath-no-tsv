@@ -1,3 +1,5 @@
+let counter = 0; //this counter keeps track of the showReadyToggle clicks
+
 
 $( document ).ready( function(){
 
@@ -14,6 +16,10 @@ $( document ).ready( function(){
   $('#editField').on('click', '.editKoalaSubmit', function(){
     submitEditedKoala($(this).attr('id'));
   })//end onclick submit edit
+  $('#showReadyToggle').on('click', function(){
+    counter++;
+    showReadyToggle(counter);
+  })//end onclick showReadyToggle
 
   $( '#addButton' ).on( 'click', function(){
     var objectToSend = {
@@ -45,9 +51,7 @@ function deleteKoala(id){
 }//end deleteKoala
 
 function editKoalaGet(id){
-  console.log('in editKoala');
   $('#editField').show();
-
   $.ajax({
     type: 'POST',
     url: '/koalas/editPost',
@@ -65,9 +69,7 @@ function editKoalaGet(id){
   });
 }//end editKoalaGet
 
-
 function getKoalas(){
-  console.log( 'in getKoalas' );
   $.ajax({
     url: '/koalas',
     type: 'GET',
@@ -82,7 +84,6 @@ function getKoalas(){
 } // end getKoalas
 
 function saveKoala( newKoala ){
-  console.log( 'in saveKoala', newKoala );
   $.ajax({
     url: '/koalas',
     type: 'POST',
@@ -97,8 +98,32 @@ function saveKoala( newKoala ){
   });
 }// end saveKoala
 
+function showReadyToggle(counter){
+  console.log('inshowreadyToggle', counter);
+  if(counter % 2 == 0){
+    getKoalas()
+    console.log('even counter, calling get koalas');
+  }//end if
+  else{
+    console.log('odd counter, calling toggle koalas');
+    $.ajax({
+      url: '/koalas/toggle',
+      type: 'GET',
+      success: function( data ){
+        console.log( 'got some koalas: ', data );
+        writeKoalas(data);
+      },
+      error: function(error){
+        console.log('failure on get');
+      }
+    });
+  }//end else
+
+  }// end showReadyToggle
+
+
+
 function submitEditedKoala(id){
-  console.log('insubmited editkoala', id);
   $.ajax({
     type: 'PUT',
     url: '/koalas/editSubmit',
@@ -121,7 +146,6 @@ function submitEditedKoala(id){
 }//end submitEditedKoala
 
 function transferKoala(id){
-  console.log('in transfer');
   $.ajax({
     type: 'PUT',
     url: '/koalas',
@@ -137,7 +161,6 @@ function transferKoala(id){
 }//end transferKoala
 
 function writeKoalas(array){
-  console.log('in write koala ', array);
   $('#nameIn').val('');
   $('#ageIn').val('');
   $('#genderIn').val('');
