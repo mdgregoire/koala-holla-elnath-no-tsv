@@ -108,5 +108,4 @@ router.get('/toggle', function(request, response){
   })
 })// end get koala toggle router
 
-
 module.exports = router;

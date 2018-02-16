@@ -20,7 +20,6 @@ $( document ).ready( function(){
     counter++;
     showReadyToggle(counter);
   })//end onclick showReadyToggle
-
   $( '#addButton' ).on( 'click', function(){
     var objectToSend = {
       name: $('#nameIn').val(),
@@ -33,7 +32,6 @@ $( document ).ready( function(){
   }); //end addButton on click
   getKoalas();// load existing koalas on page load
 }); // end doc ready
-
 
 function deleteKoala(id){
   $.ajax({
@@ -100,26 +98,23 @@ function saveKoala( newKoala ){
 
 function showReadyToggle(counter){
   console.log('inshowreadyToggle', counter);
-  if(counter % 2 == 0){
+  if(counter % 2 == 0){//if the counter is even displays koalas as normal
     getKoalas()
-    console.log('even counter, calling get koalas');
   }//end if
-  else{
-    console.log('odd counter, calling toggle koalas');
+  else{//odd counter toggles out the koalas that are not ready
     $.ajax({
       url: '/koalas/toggle',
       type: 'GET',
       success: function( data ){
-        console.log( 'got some koalas: ', data );
+        console.log( 'got some toggle koalas: ', data );
         writeKoalas(data);
       },
       error: function(error){
-        console.log('failure on get');
+        console.log('failure on get toggle');
       }
     });
   }//end else
-
-  }// end showReadyToggle
+}// end showReadyToggle
 
 
 
