@@ -76,7 +76,24 @@ router.post('/editPost', function(request, response){
   })
 })//end post edit router
 
-
+router.put('/editSubmit', function(request, response){
+  const editedKoala = request.body;
+  console.log(editedKoala, 'ineditsubmit');
+  const sqlText = `UPDATE koala
+                   SET name = '${editedKoala.name}', age = '${editedKoala.age}',
+                   gender = '${editedKoala.gender}', ready_for_transfer = '${editedKoala.ready_for_transfer}',
+                   notes = '${editedKoala.notes}'
+                   WHERE id = ${editedKoala.id}`;
+                   console.log(sqlText, 'ineditsubmit');
+  pool.query(sqlText)
+  .then(function(result){
+    console.log('success in editput');
+    response.sendStatus(200);
+  })
+  .catch(function(error){
+    console.log('error in editput');
+  })
+})//end put edit
 
 
 

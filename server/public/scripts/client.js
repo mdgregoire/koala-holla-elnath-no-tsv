@@ -11,6 +11,10 @@ $( document ).ready( function(){
   $('#viewKoalas').on('click', '.edit', function(){
     editKoalaGet($(this).attr('id'));
   })//end on click edit
+  $('#editField').on('click', '.editKoalaSubmit', function(){
+    submitEditedKoala($(this).attr('id'));
+  })//end onclick submit edit
+
   $( '#addButton' ).on( 'click', function(){
     var objectToSend = {
       name: $('#nameIn').val(),
@@ -55,7 +59,7 @@ function editKoalaGet(id){
     $('#genderEdit').val(response[0].gender);
     $('#transferEdit').val(response[0].ready_for_transfer);
     $('#notesEdit').val(response[0].notes);
-    $('#editField').append(`<button type="button" id= ${response[0].id}>Submit Changes</button>`)
+    $('#editField').append(`<button class = "editKoalaSubmit" id= ${response[0].id}>Submit Changes</button>`)
   }).fail(function(response){
     console.log('editKoalaGet fail', response);
   });
@@ -92,6 +96,29 @@ function saveKoala( newKoala ){
     }
   });
 }// end saveKoala
+
+function submitEditedKoala(id){
+  console.log('insubmited editkoala', id);
+  $.ajax({
+    type: 'PUT',
+    url: '/koalas/editSubmit',
+    data: {
+        id: id,
+        name: $('#nameEdit').val(),
+        age: $('#ageEdit').val(),
+        gender: $('#genderEdit').val(),
+        ready_for_transfer: $('#transferEdit').val(),
+        notes: $('#notesEdit').val()
+          }
+  }).done(function(response){
+    console.log('submitEditedKoala Success', response);
+    getKoalas();
+    $('#editField').hide();
+    $('.editKoalaSubmit').remove();
+  }).fail(function(response){
+    console.log('submitEditedKoala fail', response);
+  });
+}//end submitEditedKoala
 
 function transferKoala(id){
   console.log('in transfer');
