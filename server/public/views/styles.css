@@ -2,13 +2,13 @@ html body{
     background-color: #cae9fc;
     font-family: Helvetica;
    }
-   
+
    h1{
    color: #7C8700;
    margin-left: 3%;
    }
    h2{
-   color: #EED39F;
+   color: black;
    margin-left: 2%;
    }
    h3{
@@ -19,21 +19,21 @@ html body{
    color: #7c4ae8;
    margin-left: 2%;
    }
-   
+
    table {
     border-collapse: collapse;
     width: 100%;
    }
-   
+
    th, td {
     text-align: left;
     padding: 8px;
    }
-   
+
    tr:nth-child(even){
     background-color: #f2f2f2;
    }
-   
+
    th {
     background-color: #2C3852;
     color: white;

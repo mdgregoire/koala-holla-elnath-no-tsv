@@ -17,9 +17,26 @@
       <input type="text" id="nameIn" value="" placeholder="Name">
       <input type="text" id="ageIn" value="" placeholder="Age">
       <input type="text" id="genderIn" value="" placeholder="Gender">
-      <input type="text" id="readyForTransferIn" value="" placeholder="Transfer">
+      <!-- <input type="text" id="readyForTransferIn" value="" placeholder="Transfer"> -->
+      <select id ="readyForTransferIn">
+        <option value="" disabled selected>Ready for Transfer?</option>
+        <option value = "Yes">Yes</option>
+        <option vaue = "No">No</option>
+      </select>
       <input type="text" id="notesIn" value="" placeholder="Notes">
       <button type="button" id="addButton">Add Koala</button>
+    </div>
+    <div id='editField'>
+      <h2>Edit the Koala</h2>
+      <input type='text' id='nameEdit' placeholder='Name Edit' />
+      <input type='text' id='ageEdit' placeholder='Age Edit' />
+      <input type='text' id='genderEdit' placeholder='Gender Edit' />
+      <select id ="transferEdit">
+        <option value="" disabled selected>Ready for Transfer?</option>
+        <option value = "Yes">Yes</option>
+        <option vaue = "No">No</option>
+      </select>
+      <input type='text' id='notesEdit' placeholder='Notes Edit' />
     </div>
     <div>
       <h2>All Koalas</h2>
@@ -31,6 +48,9 @@
             <th>Gender</th>
             <th>Ready for Transfer</th>
             <th>Notes</th>
+            <th>Delete</th>
+            <th>Edit</th>
+            <th>Ready for Transfer Toggle</th>
           </tr>
         </thead>
         <tbody id="viewKoalas">
